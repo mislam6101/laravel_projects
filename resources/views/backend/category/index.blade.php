@@ -70,7 +70,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Categories <span class="pull-right">
-                        <button class="btn btn-info">New Category</button>
+                        <a class="btn btn-info" href="{{route('category.create')}}">New Category</a>
                         </span></h4>
                         
                         <div class="table-responsive">
