@@ -31,13 +31,24 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        $request->validate(
+            [
+                'cat_name' => 'required|max:90|min:3|unique:categories,name' 
+            ],
+            [
+                'required' => 'Category Name Must be Requiered',
+                'min' => 'Category Name Must be minimum 3 Charecter Required',
+                'max' => 'Category Name Must within 90 Charecter',
+                'unique' => 'Category Name has already exist',
+            ]
+        );
         $c_name =  $request->cat_name;
         $catergory = [
             'name' => $c_name,
         ];
         Category::create($catergory);
-        return redirect('/dashboard');
+        return redirect()->route('category.index')->with('success', 'Category Added');
 
     }
 
@@ -54,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend.category.edit');
+        // dd($category);
+        return view('backend.category.edit', compact('category'));
     }
 
     /**
@@ -62,7 +74,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate(
+            [
+                'cat_name' => 'required|max:90|min:3|unique:categories,name' 
+            ],
+            [
+                'required' => 'Category Name Must be Requiered',
+                'min' => 'Category Name Must be minimum 3 Charecter Required',
+                'max' => 'Category Name Must within 90 Charecter',
+                'unique' => 'Category Name has already exist',
+            ]
+        );
+        $data = [
+            'name' => $request->cat_name
+        ];
+        $category->update($data);
+        return redirect()->route('category.index')->with('success', 'Category Updated');
     }
 
     /**
@@ -70,6 +97,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+       $category->delete();
+        return redirect()->route('category.index')->with('success', 'Category Deleted');
     }
 }

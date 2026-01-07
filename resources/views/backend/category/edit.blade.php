@@ -1,0 +1,102 @@
+@extends ("backend.layouts.app");
+
+@section('head')
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('assets/images/favicon.png')}}">
+    <title>AdminBite admin Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="{{url('dist/css/style.min.css')}}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+@endsection;
+
+@section('content')
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Form Basic</h4>
+                <div class="d-flex align-items-center">
+
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex no-block justify-content-end align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Category Name Update</h4>
+                        @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger">{{ $error }}</div>                          
+                                @endforeach
+                        @endif
+                        <form class="mt-4" method="post" action="{{ route('category.update', $category->id) }}">
+                            @csrf
+                            @method('patch')
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Category Name : </label>
+                                <input type="text" name="cat_name" class="form-control" id="exampleInputEmail1" value="{{!old('cat_name') ? $category->name : old('cat_name') }}"
+                                    aria-describedby="emailHelp" >
+                                
+                            </div>
+                            
+                            
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="{{url('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{{url('assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
+<script src="{{url('assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- apps -->
+<script src="{{url('dist/js/app.min.js')}}"></script>
+<script src="{{url('dist/js/app.init.mini-sidebar.js')}}"></script>
+<script src="{{url('dist/js/app-style-switcher.js')}}"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="{{url('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
+<script src="{{url('assets/extra-libs/sparkline/sparkline.js')}}"></script>
+<!--Wave Effects -->
+<script src="{{url('dist/js/waves.js')}}"></script>
+<!--Menu sidebar -->
+<script src="{{url('dist/js/sidebarmenu.js')}}"></script>
+<!--Custom JavaScript -->
+<script src="{{url('dist/js/custom.min.js')}}"></script>
+@endsection;

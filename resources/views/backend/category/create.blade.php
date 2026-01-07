@@ -52,18 +52,19 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">General Form</h4>
-                        <h6 class="card-subtitle"> All with bootstrap element classies </h6>
+                        <h4 class="card-title">Category Entry Form</h4>
+                        @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger">{{ $error }}</div>                          
+                                @endforeach
+                        @endif
                         <form class="mt-4" method="post" action="{{ route('category.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Category Name : </label>
                                 <input type="text" name="cat_name" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter Category Name">
-                                
+                                    aria-describedby="emailHelp" placeholder="Enter Category Name" value="{{ old('cat_name') }}">
                             </div>
-                            
-                            
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

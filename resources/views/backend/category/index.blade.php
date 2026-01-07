@@ -36,7 +36,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Basic Table</h4>
+                <h4 class="page-title">Category Table</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -65,14 +65,18 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Categories <span class="pull-right">
-                        <a class="btn btn-info" href="{{route('category.create')}}">New Category</a>
-                        </span></h4>
-                        
+                                <a class="btn btn-info" href="{{route('category.create')}}">New Category</a>
+                            </span></h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <caption>List of users</caption>
@@ -86,9 +90,13 @@
                                 <tbody>
                                     @foreach ($cats as $cat)
                                     <tr>
-                                        <th scope="row">{{$cat->id}}</th>
-                                        <td>{{$cat->name}}</td>
-                                        <td><a href="">Update</a> | <a href="">Delete</a></td>
+                                        <form action="{{ route('category.destroy', $cat->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <th scope="row">{{$cat->id}}</th>
+                                            <td>{{$cat->name}}</td>
+                                            <td><a href="{{ route('category.edit', $cat->id) }}" class="btn btn-primary">Edit</a> &nbsp | &nbsp <button class="btn btn-danger">Delete</button> </td>
+                                        </form>
                                     </tr>
                                     @endforeach
                                 </tbody>
