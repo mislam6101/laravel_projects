@@ -20,14 +20,28 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
+        @if(Auth::guard('admin')->check())
+        @include("backend.layouts.admin_header");
+        @elseif(Auth::guard('staff')->check())
+        @include("backend.layouts.staff_header");
+        @else
         @include("backend.layouts.header");
+        @endif
+        
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
+        @if(Auth::guard('admin')->check())
         @include("backend.layouts.sidebar");
+        @elseif(Auth::guard('staff')->check())
+        @include("backend.layouts.staff_sidebar");
+        @else
+        @include("backend.layouts.sidebar");
+        @endif
+        
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
